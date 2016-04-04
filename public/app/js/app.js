@@ -1,4 +1,4 @@
-var app = angular.module("AdventureApp", ['AdventureCtrl', 'ngAnimate', 'ui.bootstrap', 'ui.router']);
+var app = angular.module("AdventureApp", ['AdventureCtrl', 'ngAnimate', 'ui.bootstrap', 'ui.router', 'ngResource']);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider){
@@ -9,11 +9,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         .state('home', {
             url: '/',
             templateUrl: 'app/views/landing.html'
-            // controller: ''
+            
         })
         .state('voicetotext', {
             url: '/voicetotext',
-            templateUrl: 'app/views/voicetotext.html'
+            templateUrl: 'app/views/voicetotext.html',
+            controller: 'Adventure'
         })
         .state('adventure', {
             url: '/adventure',

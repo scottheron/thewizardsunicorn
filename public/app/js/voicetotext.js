@@ -1,25 +1,24 @@
 var client;
 var request;
 
+//var keys = {"api_key": process.env.VOICE_TO_TEXT_KEY};
+
 function useMic() {
-    return document.getElementById("useMic").checked;
+    return true;
 }
 
 function getMode() {
-    switch (document.getElementById("mode").value) {
-        case "longDictation":
-            return Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionMode.longDictation;
-        default:
-            return Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionMode.shortPhrase;
-    }
+    return Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionMode.shortPhrase;
+    
 }
 
 function getOxfordKey() {
-    return document.getElementById("oxfordkey").value;
+    var key = apikey;
+    return key;
 }
 
 function getLanguage() {
-    return "en-us";
+    return "en-gb";
 }
 
 function clearText() {
@@ -30,57 +29,32 @@ function setText(text) {
     document.getElementById("output").value += text;
 }
 
-function getLuisConfig() {
-    var appid = document.getElementById("luis_appid").value;
-    var subid = document.getElementById("luis_subid").value;
-
-    if (appid.length > 0 && subid.length > 0) {
-        return { appid: appid, subid: subid };
-    }
-
-    return null;
-}
 
 function start() {
     var mode = getMode();
-    var luisCfg = getLuisConfig();
-
+    
     clearText();
 
     if (useMic()) {
-        if (luisCfg) {
-            client = Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClientWithIntent(
-                getLanguage(),
-                getOxfordKey(),
-                getOxfordKey(),
-                luisCfg.appid,
-                luisCfg.subid);
-        } else {
-            client = Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClient(
-                mode,
-                getLanguage(),
-                getOxfordKey(),
-                getOxfordKey());
-        }
+        client = Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClient(
+            mode,
+            getLanguage(),
+            getOxfordKey(),
+            getOxfordKey()
+        );
+        
         client.startMicAndRecognition();
         setTimeout(function () {
             client.endMicAndRecognition();
         }, 5000);
     } else {
-        if (luisCfg) {
-            client = Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClientWithIntent(
-                getLanguage(),
-                getOxfordKey(),
-                getOxfordKey(),
-                luisCfg.appid,
-                luisCfg.subid);
-        } else {
-            client = Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClient(
-                mode,
-                getLanguage(),
-                getOxfordKey(),
-                getOxfordKey());
-        }
+        client = Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClient(
+            mode,
+            getLanguage(),
+            getOxfordKey(),
+            getOxfordKey()
+         );
+        
         request = new XMLHttpRequest();
         request.open(
             'GET',
