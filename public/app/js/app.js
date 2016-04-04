@@ -1,4 +1,4 @@
-var app = angular.module("AdventureApp", ['ui.router', 'AdventureCtrl']);
+var app = angular.module("AdventureApp", ['AdventureCtrl', 'ui.router']);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider){
@@ -8,7 +8,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         $stateProvider
         .state('home', {
             url: '/',
-            templateUrl: 'app/views/landing.html',
+            templateUrl: 'app/views/voicetotext.html',
             // controller: ''
         })
         .state('adventure', {
@@ -24,3 +24,4 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         $locationProvider.html5Mode(true);
     }
 ]);
+

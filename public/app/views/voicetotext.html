@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+</head>
+
+<body style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td align="right">
+                </td>
+                <td>
+                    <input id="useMic" type="checkbox">Use Microphone</td>
+            </tr>
+            <tr>
+                <td align="right">Mode:</td>
+                <td>
+                    <select id="mode">
+                        <option selected="selected">shortPhrase</option>
+                        <option>longDictation</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Oxford Key:</td>
+                <td>
+                    <input id="oxfordkey" type="text" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">LUIS AppId:</td>
+                <td>
+                    <input id="luis_appid" type="text" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">LUIS SubscriptionId:</td>
+                <td>
+                    <input id="luis_subid" type="text" size="40">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <button onclick="start()">Start</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <textarea id="output" style="width:400px;height:200px"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td><a href="views/index.html" target="_blank">Speech.JS Documentation</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
