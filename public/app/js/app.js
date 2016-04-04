@@ -1,4 +1,4 @@
-var app = angular.module("AdventureApp", ['AdventureCtrl', 'ui.router']);
+var app = angular.module("AdventureApp", ['AdventureCtrl', 'ngAnimate', 'ui.bootstrap', 'ui.router']);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider){

@@ -349,7 +349,7 @@ var Bing;
             this._firstAudio = true;
             this.playbackAudioFilesOverride = false;
             this.grammars = null;
-            this.lang = "en-US";
+            this.lang = "en-GB";
             this.continuous = false;
             this.interimResults = true;
             this.maxAlternatives = -1;
