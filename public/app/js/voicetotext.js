@@ -18,7 +18,14 @@ function getOxfordKey() {
 }
 
 function getLanguage() {
-    return "en-gb";
+    var radios = document.getElementsByName('language');
+
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            console.log(radios[i].value);
+            return radios[i].value
+        }
+    }
 }
 
 function clearText() {
