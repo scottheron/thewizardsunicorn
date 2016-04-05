@@ -7,3 +7,4 @@ ctl.controller('Adventure', ['$scope', '$http', function ($scope, $http) {
         console.log(data);
     });
 }]);
+
