@@ -1,4 +1,25 @@
 <div>
     <div ng-include="'app/views/navbar.html'"></div>
     <h1>Adventure Begins Here!</h1>
+    <div>
+        
+        <h4>The Adventure lays ahead:</h4>
+        <textarea id="adventureOutput" class="form-control" rows="6" ></textarea><br />
+        
+        <div class="radio">
+            <label>
+                <input type="radio" name="language" id="langEnUS" value="en-us" checked="checked">
+                English US
+            </label>
+            <label>
+                <input type="radio" name="language" id="langEnGB" value="en-gb">
+                English UK
+            </label>
+        </div>
+        
+        <span class="input-group-btn">
+            <h4>Commands: <button type="button" class="btn btn-default" onclick="start()">Speak</button></h4>
+            <textarea id="adventureInput" class="form-control" rows="1" ></textarea>
+        </span>
+    </div>
 </div>

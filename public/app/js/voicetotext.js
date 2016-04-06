@@ -29,11 +29,11 @@ function getLanguage() {
 }
 
 function clearText() {
-    document.getElementById("output").value = "";
+    document.getElementById("adventureInput").value = "";
 }
 
 function setText(text) {
-    document.getElementById("output").value += text;
+    document.getElementById("adventureInput").value += text;
 }
 
 var startCount = 0;

@@ -13,13 +13,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         })
         .state('voicetotext', {
             url: '/voicetotext',
-            templateUrl: 'app/views/voicetotext.html',
-            controller: 'Adventure'
+            templateUrl: 'app/views/voicetotext.html'
+            //controller: 'Adventure'
         })
         .state('adventure', {
             url: '/adventure',
-            templateUrl: 'app/views/adventure.html'
-            //controller: 'adventure'
+            templateUrl: 'app/views/adventure.html',
+            controller: 'Adventure'
         })
         .state('404', {
             url: '/404',
