@@ -21,49 +21,104 @@ svc.service("ParsingService", [function (command){
     this.item = par[par.length-1].trim();
 }]);
 
-svc.service("DBFindBeenTo", [function (history){
-    Wizard.locationHistory.find();
-}]);
-
-svc.service("SaveCurrentLocation", [function (location){
-    Wizard.update({
-        currentLocation: location
+svc.service("GetWizard", [function (history){
+    $http({
+    method: 'GET',
+    url: '/api/wizard'
+    }).then(function successCallback(response) {
+        this.wizardDB = response;
+    }, function errorCallback(response) {
+        
     });
 }]);
 
-svc.service("DBWriteBeenTo", [function (location) {
-    Wizard.update({
-        locationHistory: location
+svc.service("UpdateWizard", [function (theInventory, theLocation, locationHist, finState){
+    $http({
+    method: 'PUT',
+    url: '/api/wizard',
+    params: {
+        inventory: theInventory,
+        currentLocation: theLocation,
+        locationHistory: locationHist,
+        fin: finState
+    }
+    }).then(function successCallback(response) {
+        this.wizardDB = response;
+    }, function errorCallback(response) {
+        
     });
 }]);
 
-svc.service("Inventory", [function (){
-    Wizard.item.find();
-}]);
-
-svc.service("InventoryUpdate", [function (anItem){
-    Wizard.item.update({
-        item: anItem
+svc.service("CreateWizard", [function (theInventory, theLocation, locationHist, finState){
+    $http({
+    method: 'POST',
+    url: '/api/wizard',
+    params: {
+        inventory: theInventory,
+        currentLocation: theLocation,
+        locationHistory: locationHist,
+        fin: finState
+    }
+    }).then(function successCallback(response) {
+        this.wizardDB = response;
+    }, function errorCallback(response) {
+        
     });
 }]);
 
-svc.service("GameOver", [function (){
-    Wizard.update({
-        fin: true
+// svc.service("DBWriteBeenTo", [function (location) {
+//     Wizard.update({
+//         locationHistory: location
+//     });
+// }]);
+
+// svc.service("Inventory", [function (){
+//     Wizard.item.find();
+// }]);
+
+// svc.service("InventoryUpdate", [function (anItem){
+//     Wizard.item.update({
+//         item: anItem
+//     });
+// }]);
+
+// svc.service("GameOver", [function (){
+//     Wizard.update({
+//         fin: true
+//     });
+// }]);
+
+svc.service("CreateLocations", [function (aName, someObjects){
+    $http({
+    method: 'POST',
+    url: '/api/location',
+    params: {
+        name: aName,
+        objects: someObjects
+    }
+    }).then(function successCallback(response) {
+        this.locationDB = response;
+    }, function errorCallback(response) {
+        
     });
 }]);
 
-svc.service("GetLocationItem", [function (aLocation){
-    Location.item.find({name: aLocation}, function(foundItems){
-        this.localItems = foundItems;
+svc.service("GetLocation", [function (){
+    $http({
+    method: 'GET',
+    url: '/api/location'
+    }).then(function successCallback(response) {
+        this.locationDB = response;
+    }, function errorCallback(response) {
+        
     });
 }]);
 
-svc.service("PickUp", [function (anItem){
-    Wizard.update({
-        inventory: [{anItem}]
-    });
-}]);
+// svc.service("PickUp", [function (anItem){
+//     Wizard.update({
+//         inventory: [{anItem}]
+//     });
+// }]);
 
 svc.service("GetJSONLocation", [function (aLocation){
     //five database calls

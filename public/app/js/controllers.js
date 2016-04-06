@@ -13,35 +13,46 @@ ctl.controller('Parallax', function($scope, parallaxHelper){
 });
 
 ctl.controller('Game', ['$scope', function ($scope){
-    $scope.initialService = InitialService;
+    // $scope.initialService = InitialService;
+    
+    CreateWizard(["staff"], "lair", ["lair"], false);
+    CreateLocations("lair", ["map", "cauldron", "Haggis"]);
+    CreateLocations("giza", ["money", "A grumpy cat", "some schwarma"]);
+    CreateLocations("alexandria", ["starlight", "a book titled: History of Atlantis", "a Box of Butternut Squash"]);
+    CreateLocations("vault", ["dust","a Strange cream filled yellow cake"]);
+    CreateLocations("atlantis", ["Unicorn"]);
     var gameLogic = function (){
         
         $scope.parsingService = ParsingService;
         switch($scope.parsingService.comm){
             case 'go':
-            if (BeenToIndex($scope.parsingService.location) != -1) {
-                $scope.output = //something;
-                SaveCurrentLocation($scope.parsingService.location);
+            $scope.wizard = GetWizard;
+            if ($scope.wizard.wizardDB.locationHistory.indexOf($scope.parsingService.location) != -1) {
+                $scope.output = "Traveling";
+                UpdateWizard($scope.wizard.wizardDB.inventory, $scope.parsingService.location, $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin);
             } else {
-                if ($scope.parsingService.location == "giza" && InventoryIndex("map") != -1){
-                    SaveCurrentLocation("giza");
-                    DBWriteBeenTo("giza");
+                if ($scope.parsingService.location == "giza" && $scope.wizard.wizardDB.inventory.indexOf("map") != -1){
+                    $scope.wizard.wizardDB.locationHistory.push("giza");
+                    UpdateWizard($scope.wizard.wizardDB.inventory, "giza", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin);
+                    
                 }
-                if ($scope.parsingService.location == 'alexandria' && $scope.initialService.userLocation == 'harbor' && InventoryIndex("money") != -1) {
-                    SaveCurrentLocation("alexandria");
-                    DBWriteBeenTo("alexandria");
+                if ($scope.parsingService.location == 'alexandria' && $scope.wizard.wizardDB.currentLocation == 'harbor' && $scope.wizard.wizardDB.inventory.indexOf("money") != -1) {
+                    
+                    $scope.wizard.wizardDB.locationHistory.push("alexandria");
+                    UpdateWizard($scope.wizard.wizardDB.inventory, "alexandria", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin);
+                    
                 }
-                if ($scope.parsingService.location == 'harbor' && $scope.initialService.userLocation == 'giza') {
-                    SaveCurrentLocation("harbor");
-                    DBWriteBeenTo("harbor");
+                if ($scope.parsingService.location == 'harbor' && $scope.wizard.wizardDB.currentLocation == 'giza') {
+                    $scope.wizard.wizardDB.locationHistory.push("harbor");
+                    UpdateWizard($scope.wizard.wizardDB.inventory, "harbor", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin);
                 }
-                if ($scope.parsingService.location == 'vault' && $scope.initialService.userLocation == 'alexandria') {
-                    SaveCurrentLocation("vault");
-                    DBWriteBeenTo("vault");
+                if ($scope.parsingService.location == 'vault' && $scope.wizard.wizardDB.currentLocation == 'alexandria') {
+                    $scope.wizard.wizardDB.locationHistory.push("vault");
+                    UpdateWizard($scope.wizard.wizardDB.inventory, "vault", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin);
                 }
-                if ($scope.parsingService.location == 'atlantis' && $scope.initialService.userLocation == 'vault' && InventoryIndex("starlight") != -1) {
-                    //database fin = true
-                    DBWriteBeenTo("atlantis");
+                if ($scope.parsingService.location == 'atlantis' && $scope.wizard.wizardDB.currentLocation == 'vault' && $scope.wizard.wizardDB.inventory.indexOf("starlight") != -1) {
+                    $scope.wizard.wizardDB.locationHistory.push("atlantis");
+                    UpdateWizard($scope.wizard.wizardDB.inventory, "atlantis", $scope.wizard.wizardDB.locationHistory, true);
                 }
                 //$scope.output = whatever;
                 
