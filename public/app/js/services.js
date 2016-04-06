@@ -22,14 +22,16 @@ svc.service("ParsingService", [function (command){
 }]);
 
 svc.service("GetWizard", [function (history){
+    this.wizardDB = function(){
     $http({
     method: 'GET',
     url: '/api/wizard'
     }).then(function successCallback(response) {
-        this.wizardDB = response;
+       return response;
     }, function errorCallback(response) {
-        
+        return response;
     });
+    }
 }]);
 
 svc.service("UpdateWizard", [function (theInventory, theLocation, locationHist, finState){
@@ -66,28 +68,6 @@ svc.service("CreateWizard", [function (theInventory, theLocation, locationHist, 
     });
 }]);
 
-// svc.service("DBWriteBeenTo", [function (location) {
-//     Wizard.update({
-//         locationHistory: location
-//     });
-// }]);
-
-// svc.service("Inventory", [function (){
-//     Wizard.item.find();
-// }]);
-
-// svc.service("InventoryUpdate", [function (anItem){
-//     Wizard.item.update({
-//         item: anItem
-//     });
-// }]);
-
-// svc.service("GameOver", [function (){
-//     Wizard.update({
-//         fin: true
-//     });
-// }]);
-
 svc.service("CreateLocations", [function (aName, someObjects){
     $http({
     method: 'POST',
@@ -114,15 +94,7 @@ svc.service("GetLocation", [function (){
     });
 }]);
 
-// svc.service("PickUp", [function (anItem){
-//     Wizard.update({
-//         inventory: [{anItem}]
-//     });
-// }]);
 
-svc.service("GetJSONLocation", [function (aLocation){
-    //five database calls
-}]);
 
 
 
