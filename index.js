@@ -16,14 +16,15 @@ var Location = require('./models/location');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public/'));
+app.use('/api/users', expressJWT({secret: secret}).unless({
+    method: "POST"
+}));
+app.use('/adventure', expressJWT({secret: secret}));
 
 mongoose.connect('mongodb://localhost/adventure');
 
-app.use('/adventure', expressJWT({secret: secret}));
 app.use('/api/locations', require('./controllers/locations'));
 app.use('/api/wizards', require('./controllers/wizards'));
-app.use('/api/users', expressJWT({secret: secret})
-.unless({path: ['/api/users'], method: 'post'}));
 
 app.use('/api/adventure', require('./controllers/adventure'));
 app.use('/api/users', require('./controllers/users'));

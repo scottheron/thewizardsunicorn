@@ -93,15 +93,15 @@ function start() {
         client.onFinalResponseReceived = function (response) {
             console.log('2-------------------');
             console.log(response);
-            console.log(response[0].display);
+            console.log(response[0].lexical);
             console.log(JSON.stringify(response));
-            console.log(JSON.stringify(response[0].display));
+            console.log(JSON.stringify(response[0].lexical));
             console.log('2-------------------');
             var testarr = JSON.stringify(response);
             console.log(testarr[4]);
-            console.log(testarr['transcript']);
+            console.log(testarr['lexical']);
             console.log('2-------------------');
-            setText(JSON.stringify(response[0].display));
+            setText(JSON.stringify(response[0].lexical));
             
         }
 
