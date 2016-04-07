@@ -1,9 +1,9 @@
 <div>
     <h1>Adventure Begins Here!</h1>
-    <div>
+    <div ng-controller="Game">
         
         <h4>The Adventure lays ahead:</h4>
-        <textarea id="adventureOutput" class="form-control" rows="6" ></textarea><br />
+        <textarea id="adventureOutput" class="form-control" rows="6" >output: {{output}}, testing: {{testing}}</textarea><br />
         
         <div class="radio">
             <label>
@@ -15,16 +15,19 @@
                 English UK
             </label>
         </div>
-        
-        <span class="input-group-btn">
-            <h4>Commands: <button type="button" class="btn btn-default" onclick="start()">Speak</button></h4>
-            <textarea id="adventureInput" class="form-control" rows="1" ></textarea>
-        </span>
+        <form>
+            <div class="form-group">
+            <span class="input-group-btn">
+                <h4>Commands: <button type="button" class="btn btn-default" onclick="start()">Speak</button><button type="submit" class="btn btn-default" ng-click="wiz()">Submit</button></h4>
+                <textarea id="adventureInput" ng-model="input" class="form-control" rows="1" ></textarea>
+            </span>
+            </div>
+        </form>
     </div>
 </div>
 
-<div>
-    <div ng-include="'app/views/navbar.html'"></div>
+<!--<div>
+    
     <h1>Adventure Begins Here!</h1>
     <div ng-controller="Game">
         
@@ -44,4 +47,4 @@
 
         
     </div>
-</div>
+</div>-->
