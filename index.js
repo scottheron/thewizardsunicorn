@@ -28,12 +28,6 @@ app.use('/api/users', expressJWT({secret: secret})
 app.use('/api/adventure', require('./controllers/adventure'));
 app.use('/api/users', require('./controllers/users'));
 
-// app.use(function (err, req, res, next) {
-//   if (err.name === 'UnauthorizedError') {
-//     res.status(401).send({message: 'You need an authorization token to view this information.'})
-//   }
-// });
-
 app.post('/api/auth', function(req, res) {
   User.findOne({email: req.body.email}, function(err, user) {
     if (err || !user) return res.status(401).send({message: 'User not found'});
@@ -53,8 +47,6 @@ app.get('/apikey', function (req, res) {
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-
-
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
