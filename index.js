@@ -19,7 +19,7 @@ app.use(express.static(__dirname + '/public/'));
 app.use('/api/users', expressJWT({secret: secret}).unless({
     method: "POST"
 }));
-app.use('/adventure', expressJWT({secret: secret}));
+//app.use('/adventure', expressJWT({secret: secret}));
 
 mongoose.connect('mongodb://localhost/adventure');
 
