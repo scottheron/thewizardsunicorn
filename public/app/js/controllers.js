@@ -1,4 +1,4 @@
-var ctl = angular.module('AdventureCtrl', ['AdventureSrvc', 'duParallax']);
+var ctl = angular.module('AdventureCtrl', ['AdventureService', 'duParallax']);
 
 ctl.controller('Adventure', ['$scope', '$http', function ($scope, $http) {
     $http.get('/apikey', {}).then(function success(data){
