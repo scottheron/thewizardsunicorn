@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="NavCtrl">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -16,9 +16,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Home</a></li>
                 <li><a href="/voicetotext">Voice to text</a></li>
-                <li><a href="/adventure">Adventure</a></li>
+                <li><a href="/adventure" ng-show="Auth.isLoggedIn()">Adventure</a></li>
+                <li><a href="/signup" ng-hide="Auth.isLoggedIn()">Signup</a></li>
+                <li><a href="/login" ng-hide="Auth.isLoggedIn()">Login</a></li>
+                <li><a ng-click="logout()" ng-show="Auth.isLoggedIn()">Logout</a></li>
                 
             </ul>
         </div><!-- /.navbar-collapse -->
     </div>
 </nav>
+
+
