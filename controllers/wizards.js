@@ -16,7 +16,12 @@ router.route('/')
     });
   })
   .put(function(req, res){
-      Wizard.findByIdAndUpdate(req.params.id, req.body, function(err) {
+    console.log("params");
+    console.log(req.params.id);
+
+    console.log("body");
+    console.log(req.body);
+      Wizard.findByIdAndUpdate(req.body.id, req.body, function(err) {
           if (err) return res.status(500).send(err);
           res.send({'message': 'success'});
       });

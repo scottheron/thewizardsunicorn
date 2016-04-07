@@ -32,42 +32,56 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
         $scope.wizard = wiz;
         GetLocation.locationDB($scope.gameLogic);
     }
+
+    $scope.pickup = function(wiz){
+        console.log(wiz);
+        $scope.output = "You picked up "+$scope.wizard.data.inventory[$scope.wizard.data.inventory.length-1];
+    }
+
+    $scope.newPlace = function(wiz){
+        if ($scope.parsingService.item == 'atlantis'){
+            $scope.output = "You have won!";
+        }
+        $scope.output = "You traveled to "+$scope.parsingService.item;
+    }
     
     $scope.gameLogic = function (allTheLocations){
 
         $scope.allLocations = allTheLocations;
         // $scope.wizard = GetWizard.wizardDB();
-        console.log($scope.wizard);
+        console.log("inventory");
+        console.log($scope.wizard.data.inventory);
         $scope.parsingService = ParsingService.parse($scope.input);
         console.log($scope.parsingService);
         switch($scope.parsingService.comm) {
             case 'go':
-            if ($scope.wizard.wizardDB.locationHistory.indexOf($scope.parsingService.location) != -1) {
+            if ($scope.wizard.data.locationHistory.indexOf($scope.parsingService.item) != -1) {
                 $scope.output = "Traveling";
-                UpdateWizard($scope.wizard.wizardDB.inventory, $scope.parsingService.location, $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin);
+                UpdateWizard.wizardDB($scope.wizard.data.inventory, $scope.parsingService.item, $scope.wizard.data.locationHistory, $scope.wizard.data.fin,$scope.wizard.data._id, $scope.newPlace);
             } else {
-                if ($scope.parsingService.location == "giza" && $scope.wizard.wizardDB.inventory.indexOf("map") != -1){
-                    $scope.wizard.wizardDB.locationHistory.push("giza");
-                    UpdateWizard($scope.wizard.wizardDB.inventory, "giza", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin, $scope.wizard.wizardDB._id);
+                if ($scope.parsingService.item == "giza" && $scope.wizard.data.inventory.indexOf("map") != -1){
+                    $scope.wizard.data.locationHistory.push("giza");
+                    UpdateWizard.wizardDB($scope.wizard.data.inventory, "giza", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                     
                 }
-                if ($scope.parsingService.location == 'alexandria' && $scope.wizard.wizardDB.currentLocation == 'harbor' && $scope.wizard.wizardDB.inventory.indexOf("money") != -1) {
+                if ($scope.parsingService.item == 'alexandria' && $scope.wizard.data.currentLocation == 'harbor' && $scope.wizard.data.inventory.indexOf("money") != -1) {
                     
-                    $scope.wizard.wizardDB.locationHistory.push("alexandria");
-                    UpdateWizard($scope.wizard.wizardDB.inventory, "alexandria", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin, $scope.wizard.wizardDB._id);
+                    $scope.wizard.data.locationHistory.push("alexandria");
+                    UpdateWizard.wizardDB($scope.wizard.data.inventory, "alexandria", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                     
                 }
-                if ($scope.parsingService.location == 'harbor' && $scope.wizard.wizardDB.currentLocation == 'giza') {
-                    $scope.wizard.wizardDB.locationHistory.push("harbor");
-                    UpdateWizard($scope.wizard.wizardDB.inventory, "harbor", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin, $scope.wizard.wizardDB._id);
+                if ($scope.parsingService.item == 'harbor' && $scope.wizard.data.currentLocation == 'giza') {
+                    $scope.wizard.data.locationHistory.push("harbor");
+                    UpdateWizard.wizardDB($scope.wizard.data.inventory, "harbor", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                 }
-                if ($scope.parsingService.location == 'vault' && $scope.wizard.wizardDB.currentLocation == 'alexandria') {
-                    $scope.wizard.wizardDB.locationHistory.push("vault");
-                    UpdateWizard($scope.wizard.wizardDB.inventory, "vault", $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin, $scope.wizard.wizardDB._id);
+                if ($scope.parsingService.item == 'vault' && $scope.wizard.data.currentLocation == 'alexandria') {
+                    $scope.wizard.data.locationHistory.push("vault");
+                    UpdateWizard.wizardDB($scope.wizard.data.inventory, "vault", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                 }
-                if ($scope.parsingService.location == 'atlantis' && $scope.wizard.wizardDB.currentLocation == 'vault' && $scope.wizard.wizardDB.inventory.indexOf("starlight") != -1) {
-                    $scope.wizard.wizardDB.locationHistory.push("atlantis");
-                    UpdateWizard($scope.wizard.wizardDB.inventory, "atlantis", $scope.wizard.wizardDB.locationHistory, true, $scope.wizard.wizardDB._id);
+                if ($scope.parsingService.item == 'atlantis' && $scope.wizard.data.currentLocation == 'vault' && $scope.wizard.data.inventory.indexOf("starlight") != -1) {
+                    $scope.wizard.data.locationHistory.push("atlantis");
+                    $scope.wizard.data.fin = true;
+                    UpdateWizard.wizardDB($scope.wizard.data.inventory, "atlantis", $scope.wizard.data.locationHistory, true, $scope.wizard.data._id, $scope.newPlace);
                 }
                 //$scope.output = whatever;
                 
@@ -76,43 +90,56 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             
             case 'look':
             // $scope.allLocations = GetLocation; 
-            $scope.output = $scope.allLocations.locationDB.objects;
+            console.log("entering look");
+            $scope.allLocations.data.forEach(function(location) {
+                if (location.name==$scope.wizard.data.currentLocation){
+                    $scope.output = location.objects;
+                }
+            });
+            
             break;
             
             case 'pick':
-            $scope.wizard.wizardDB.inventory.push($scope.parsingService.item);
-            UpdateWizard($scope.wizard.wizardDB.inventory, $scope.wizard.wizardDB.currentLocation, $scope.wizard.wizardDB.locationHistory, $scope.wizard.wizardDB.fin, $scope.wizard.wizardDB._id);
+            $scope.wizard.data.inventory.push($scope.parsingService.item);
+            console.log($scope.wizard.data.inventory);
+            UpdateWizard.wizardDB($scope.wizard.data.inventory, $scope.wizard.data.currentLocation, $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.pickup);
+           
             //PickUp($scope.parsingService.item);
             break;
             
             case 'where':
             console.log("entering where");
-            $scope.adjacentLocations = $scope.wizard.locationHistory.slice(0);
+            console.log($scope.wizard.data.locationHistory);
+            $scope.adjacentLocations = $scope.wizard.data.locationHistory.slice(0);
+            console.log("adjloc");
+            console.log($scope.adjacentLocations);
+            console.log($scope.wizard.data.inventory.indexOf("map"));
             
-            if ($scope.wizard.wizardDB.currentLocation == "lair" && $scope.wizard.wizardDB.locationHistory.indexOf("giza") == -1 && $scope.wizard.wizardDB.inventory.indexOf("map") != -1) {
+            if ($scope.wizard.data.currentLocation == "lair" && $scope.wizard.data.locationHistory.indexOf("giza") == -1 && $scope.wizard.data.inventory.indexOf("map") != -1) {
                $scope.adjacentLocations.push("giza");
             }
-            if ($scope.wizard.wizardDB.currentLocation == "giza" && $scope.wizard.wizardDB.locationHistory.indexOf("harbor") == -1) {
+            if ($scope.wizard.data.currentLocation == "giza" && $scope.wizard.data.locationHistory.indexOf("harbor") == -1) {
                $scope.adjacentLocations.push("harbor");
             }
-            if ($scope.wizard.wizardDB.currentLocation == "harbor" && $scope.wizard.wizardDB.locationHistory.indexOf("alexandria") == -1 && $scope.wizard.wizardDB.inventory.indexOf("money") != -1) {
+            if ($scope.wizard.data.currentLocation == "harbor" && $scope.wizard.data.locationHistory.indexOf("alexandria") == -1 && $scope.wizard.data.inventory.indexOf("money") != -1) {
                $scope.adjacentLocations.push("alexandria");
             }
-            if ($scope.wizard.wizardDB.currentLocation == "alexandria" && $scope.wizard.wizardDB.locationHistory.indexOf("vault") == -1) {
+            if ($scope.wizard.data.currentLocation == "alexandria" && $scope.wizard.data.locationHistory.indexOf("vault") == -1) {
                $scope.adjacentLocations.push("vault");
             }
-            if ($scope.wizard.wizardDB.currentLocation == "vault" && $scope.wizard.wizardDB.inventory.indexOf("starlight") != -1) {
+            if ($scope.wizard.data.currentLocation == "vault" && $scope.wizard.data.inventory.indexOf("starlight") != -1) {
                $scope.adjacentLocations.push("atlantis");
             }
             
-            var indexOfLocation = $scope.adjacentLocations.indexOf($scope.wizard.wizardDB.currentLocation);
+            var indexOfLocation = $scope.adjacentLocations.indexOf($scope.wizard.data.currentLocation);
             
             $scope.adjacentLocations.splice(indexOfLocation, 1);
+            $scope.output = $scope.adjacentLocations;
             
             break;
             
             case 'inventory':
-            $scope.output = $scope.wizard.wizardDB.inventory;
+            $scope.output = $scope.wizard.data.inventory;
             break;
             
             default:

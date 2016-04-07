@@ -16,10 +16,21 @@ svc.service("InitialService", [function (){
 
 svc.service("ParsingService", [function (command){
     this.parse = function(command){
+        var properItems = {
+            "go": ["lair", "giza", "harbor", "alexandria", "vault", "atlantis"],
+            "pick": ["map", "cauldron", "Haggis", "money", "cat", "schwarma", "light", "History", "Squash", "dust", "cake"]
+        };
         par = command.split(" ");
         comm = par[0].trim();
         // location = par[par.length-1].trim();
         item = par[par.length-1].trim();
+        console.log(comm);
+        console.log(item);
+
+        if (comm in properItems && properItems[comm].indexOf(item) == -1){
+            comm = "mcGarble";
+        }
+        
         return {
             comm,
             // location,
@@ -44,21 +55,19 @@ svc.service("GetWizard", ["$http",function ($http){
 }]);
 
 svc.service("UpdateWizard", ["$http",function ($http){
-    this.wizardDB = function(theInventory, theLocation, locationHist, finState, theId){
+    this.wizardDB = function(theInventory, theLocation, locationHist, finState, theId, callback){
         $http({
         method: 'PUT',
-        url: '/api/wizard',
-        params: {
-            id: theId
-        },
+        url: '/api/wizards',
         data: {
+            id: theId,
             inventory: theInventory,
             currentLocation: theLocation,
             locationHistory: locationHist,
             fin: finState
         }
         }).then(function successCallback(response) {
-            return response;
+            callback(response);
         }, function errorCallback(response) {
             
         });
@@ -101,7 +110,7 @@ svc.service("GetLocation", ["$http", function ($http){
     this.locationDB = function(callback) {
         $http({
         method: 'GET',
-        url: '/api/location'
+        url: '/api/locations'
         }).then(function successCallback(response) {
             callback(response);
         }, function errorCallback(response) {
