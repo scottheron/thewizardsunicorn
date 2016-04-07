@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Location = require('./models/location');
+var Location = require('../models/location');
 
 router.route('/')
   .get(function(req, res) {

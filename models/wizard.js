@@ -7,4 +7,6 @@ var WizardSchema = new mongoose.Schema({
   fin: Boolean
 });
 
+
+
 module.exports = mongoose.model('Wizard', WizardSchema);

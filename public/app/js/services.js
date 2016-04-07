@@ -1,4 +1,4 @@
-var svc = angular.module('AdventureService');
+var svc = angular.module('AdventureService',[]);
 
 svc.service("InitialService", [function (){
     this.userLocation = "lair";
@@ -15,83 +15,99 @@ svc.service("InitialService", [function (){
 }]);
 
 svc.service("ParsingService", [function (command){
-    this.par = command.split(" ");
-    this.comm = par[0].trim();
-    this.location = par[par.length-1].trim();
-    this.item = par[par.length-1].trim();
-}]);
-
-svc.service("GetWizard", [function (history){
-    this.wizardDB = function(){
-    $http({
-    method: 'GET',
-    url: '/api/wizard'
-    }).then(function successCallback(response) {
-       return response;
-    }, function errorCallback(response) {
-        return response;
-    });
+    this.parse = function(command){
+        par = command.split(" ");
+        comm = par[0].trim();
+        // location = par[par.length-1].trim();
+        item = par[par.length-1].trim();
+        return {
+            comm,
+            // location,
+            item
+            
+        };
     }
 }]);
 
-svc.service("UpdateWizard", [function (theInventory, theLocation, locationHist, finState){
-    $http({
-    method: 'PUT',
-    url: '/api/wizard',
-    params: {
-        inventory: theInventory,
-        currentLocation: theLocation,
-        locationHistory: locationHist,
-        fin: finState
+svc.service("GetWizard", ["$http",function ($http){
+   this.wizardDB = function(callback){
+        $http({
+            method: 'GET',
+            url: '/api/wizards'
+        }).then(function successCallback(response) {
+            console.log(response);
+           callback(response);
+        }, function errorCallback(response) {
+            return response;
+        });
     }
-    }).then(function successCallback(response) {
-        this.wizardDB = response;
-    }, function errorCallback(response) {
-        
-    });
 }]);
 
-svc.service("CreateWizard", [function (theInventory, theLocation, locationHist, finState){
-    $http({
-    method: 'POST',
-    url: '/api/wizard',
-    params: {
-        inventory: theInventory,
-        currentLocation: theLocation,
-        locationHistory: locationHist,
-        fin: finState
+svc.service("UpdateWizard", ["$http",function ($http){
+    this.wizardDB = function(theInventory, theLocation, locationHist, finState, theId){
+        $http({
+        method: 'PUT',
+        url: '/api/wizard',
+        params: {
+            id: theId
+        },
+        data: {
+            inventory: theInventory,
+            currentLocation: theLocation,
+            locationHistory: locationHist,
+            fin: finState
+        }
+        }).then(function successCallback(response) {
+            return response;
+        }, function errorCallback(response) {
+            
+        });
     }
-    }).then(function successCallback(response) {
-        this.wizardDB = response;
-    }, function errorCallback(response) {
-        
-    });
 }]);
 
-svc.service("CreateLocations", [function (aName, someObjects){
-    $http({
-    method: 'POST',
-    url: '/api/location',
-    params: {
-        name: aName,
-        objects: someObjects
-    }
-    }).then(function successCallback(response) {
-        this.locationDB = response;
-    }, function errorCallback(response) {
+// svc.service("CreateWizard", [function (theInventory, theLocation, locationHist, finState){
+//     $http({
+//     method: 'POST',
+//     url: '/api/wizard',
+//     data: {
+//         inventory: theInventory,
+//         currentLocation: theLocation,
+//         locationHistory: locationHist,
+//         fin: finState
+//     }
+//     }).then(function successCallback(response) {
+//         this.wizardDB = response;
+//     }, function errorCallback(response) {
         
-    });
-}]);
+//     });
+// }]);
 
-svc.service("GetLocation", [function (){
-    $http({
-    method: 'GET',
-    url: '/api/location'
-    }).then(function successCallback(response) {
-        this.locationDB = response;
-    }, function errorCallback(response) {
+// svc.service("CreateLocations", [function (aName, someObjects){
+//     $http({
+//     method: 'POST',
+//     url: '/api/location',
+//     data: {
+//         name: aName,
+//         objects: someObjects
+//     }
+//     }).then(function successCallback(response) {
+//         this.locationDB = response;
+//     }, function errorCallback(response) {
         
-    });
+//     });
+// }]);
+
+svc.service("GetLocation", ["$http", function ($http){
+    this.locationDB = function(callback) {
+        $http({
+        method: 'GET',
+        url: '/api/location'
+        }).then(function successCallback(response) {
+            callback(response);
+        }, function errorCallback(response) {
+            
+        });
+    }
 }]);
 
 
