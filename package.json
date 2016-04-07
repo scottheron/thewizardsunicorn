@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/scottheron/thewizardsunicorn#readme",
   "dependencies": {
-    "angular-flash": "^1.2.0",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.15.0",
     "ejs": "^2.4.1",
