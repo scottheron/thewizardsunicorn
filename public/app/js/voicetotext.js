@@ -28,20 +28,20 @@ function getLanguage() {
     }
 }
 
-function clearText() {
-    document.getElementById("adventureInput").value = "";
-}
+// function clearText() {
+//     document.getElementById("adventureInput").value = "";
+// }
 
-function setText(text) {
-    document.getElementById("adventureInput").value += text;
-}
+// function setText(text) {
+//     document.getElementById("adventureInput").value += text;
+// }
 
 var startCount = 0;
-function start() {
+function start(setText) {
     var mode = getMode();
     startCount++; 
     console.log(startCount);
-    clearText();
+    // clearText();
     
     if (startCount < 6) {
         

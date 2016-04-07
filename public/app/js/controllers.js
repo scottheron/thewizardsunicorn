@@ -59,7 +59,17 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
     // CreateLocations("vault", ["dust","a Strange cream filled yellow cake"]);
     // CreateLocations("atlantis", ["Unicorn"]);
     $scope.adjacentLocations = [];
-    $scope.input="";
+    $scope.commands="";
+    
+    $scope.voiceToText = function() {
+        $scope.commands = 'Loading';
+        start(function(text) {
+            $scope.$apply(function() {
+                $scope.commands = text;
+                console.log($scope.commands);
+            });
+        });
+    }
 
     $scope.wiz = function(){
         GetWizard.wizardDB($scope.loc);
