@@ -98,7 +98,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
         // $scope.wizard = GetWizard.wizardDB();
         console.log("inventory");
         console.log($scope.wizard.data.inventory);
-        $scope.parsingService = ParsingService.parse($scope.input);
+        $scope.parsingService = ParsingService.parse($scope.commands);
         console.log($scope.parsingService);
         switch($scope.parsingService.comm) {
             case 'go':
