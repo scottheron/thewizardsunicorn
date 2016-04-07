@@ -8,14 +8,16 @@ var request = require('request');
 var env = process.env.NODE_ENV || 'development';
 var secret = "mysupersecretpassword";
 var mongoose = require('mongoose');
-// var Adventure = require('./models/adventure');
+
 var User = require('./models/user');
+var Wizard = require('./models/wizard');
+var Location = require('./models/location');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public/'));
 
-mongoose.connect('mongodb://localhost/api/adventure');
+mongoose.connect('mongodb://localhost/adventure');
 
 app.use('/adventure', expressJWT({secret: secret}));
 app.use('/api/users', expressJWT({secret: secret})
