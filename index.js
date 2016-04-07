@@ -20,6 +20,8 @@ app.use(express.static(__dirname + '/public/'));
 mongoose.connect('mongodb://localhost/adventure');
 
 app.use('/adventure', expressJWT({secret: secret}));
+app.use('/api/locations', require('./controllers/locations'));
+app.use('/api/wizards', require('./controllers/wizards'));
 app.use('/api/users', expressJWT({secret: secret})
 .unless({path: ['/api/users'], method: 'post'}));
 
