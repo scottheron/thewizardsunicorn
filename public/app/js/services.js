@@ -44,8 +44,12 @@ svc.service("ParsingService", [function (command){
         comm = par[0].trim();
         // location = par[par.length-1].trim();
         item = par[par.length-1].trim();
-        console.log(comm);
-        console.log(item);
+        console.log('comm1 '+comm);
+        console.log('item1'+item);
+        comm = comm.replace(/["](\w+)["]?\s?/, '$1');
+        item = item.replace(/[\W]?(\w+)[\W]?["]?/, '$1');
+        console.log('comm2 '+comm);
+        console.log('item2'+item);
 
         if (comm in properItems && properItems[comm].indexOf(item) == -1){
             comm = "mcGarble";
