@@ -1,6 +1,9 @@
-var app = angular.module("AdventureApp", ['AdventureCtrl', 'ngAnimate', 'ui.bootstrap', 'ui.router', 'ngResource', 'duParallax']);
+var app = angular.module("AdventureApp", ['AdventureCtrl', 'AdventureSrvc', 'ngAnimate', 'ui.bootstrap', 'ui.router', 'ngResource', 'duParallax']);
 
-app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+app.config([
+    '$stateProvider', 
+    '$urlRouterProvider', 
+    '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider){
 
         $urlRouterProvider.otherwise('/404');
@@ -9,17 +12,26 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         .state('home', {
             url: '/',
             templateUrl: 'app/views/landing.html'
-            
         })
         .state('voicetotext', {
             url: '/voicetotext',
-            templateUrl: 'app/views/voicetotext.html',
-            controller: 'Adventure'
+            templateUrl: 'app/views/voicetotext.html'
+            //controller: 'Adventure'
         })
         .state('adventure', {
             url: '/adventure',
-            templateUrl: 'app/views/adventure.html'
-            //controller: 'adventure'
+            templateUrl: 'app/views/adventure.html',
+            controller: 'Adventure'
+        })
+        .state('signup', {
+            url: '/signup',
+            templateUrl: 'app/views/userSignup.html',
+            controller: 'SignupCtrl'
+        })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'app/views/userLogin.html',
+            controller: 'LoginCtrl'
         })
         .state('404', {
             url: '/404',
@@ -29,4 +41,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         $locationProvider.html5Mode(true);
     }
 ]);
+
+app.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor')
+}]);
 
