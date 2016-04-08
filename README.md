@@ -26,7 +26,7 @@ This is a voice controlled text adventure game written using the MEAN stack. Ang
 <img src="./wireframes_erd/3.jpg" width="280">
 
 ### ERD
-<img src="./wireframes_erd/unicornERD.pdf" width="280">
+<img src="./wireframes_erd/unicornERD.png" width="280">
 
 ### Credits
 * [Angular](https://angularjs.org/)
