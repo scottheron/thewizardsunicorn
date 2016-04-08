@@ -3,7 +3,7 @@
     <div ng-controller="Game">
         
         <h4>The Adventure lays ahead:</h4>
-        <textarea id="adventureOutput" class="form-control" rows="6" >output: {{output}}, testing: {{testing}}</textarea><br />
+        <textarea id="adventureOutput" class="form-control" rows="6" >{{output}}, {{testing}}</textarea><br />
         
         <div class="radio">
             <label>
@@ -23,5 +23,6 @@
             </span>
             </div>
         </form>
+        <button type="button" class="btn btn-default" ng-click="resetGame()">New Game</button>
     </div>
 </div>

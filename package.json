@@ -29,6 +29,7 @@
     "mongoose": "^4.4.10",
     "mongoose-findorcreate": "^0.1.2",
     "ng-parallax": "^1.0.1",
+    "ngstorage": "^0.3.10",
     "request": "^2.70.0"
   }
 }
