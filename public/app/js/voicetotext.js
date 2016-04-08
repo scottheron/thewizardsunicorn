@@ -83,9 +83,6 @@ function start(setText) {
         }
 
         client.onPartialResponseReceived = function (response) {
-            console.log('1-------------------');
-            console.log(response);
-            console.log('1-------------------');
             setText(JSON.stringify(response[0].display));
             
         }
@@ -106,9 +103,6 @@ function start(setText) {
         }
 
         client.onIntentReceived = function (response) {
-            console.log('3-------------------');
-            console.log(response);
-            console.log('3-------------------');
             setText(JSON.stringify(response[0].display));
             
         };
