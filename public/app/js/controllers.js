@@ -128,7 +128,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
         switch($scope.parsingService.comm) {
             case 'go':
             if ($scope.wizard.data.locationHistory.indexOf($scope.parsingService.item) != -1) {
-                $scope.output = "Traveling";
+                $scope.output = "You teleport to "+$scope.parsingService.item;
                 UpdateWizard.wizardDB($scope.wizard.data.inventory, $scope.parsingService.item, $scope.wizard.data.locationHistory, $scope.wizard.data.fin,$scope.wizard.data._id, $scope.newPlace);
             } else {
                 if ($scope.parsingService.item == "giza" && $scope.wizard.data.inventory.indexOf("map") != -1){
@@ -138,28 +138,31 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "giza", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                     
                 }
-                if ($scope.parsingService.item == 'alexandria' && $scope.wizard.data.currentLocation == 'harbor' && $scope.wizard.data.inventory.indexOf("money") != -1) {
+                else if ($scope.parsingService.item == 'alexandria' && $scope.wizard.data.currentLocation == 'harbor' && $scope.wizard.data.inventory.indexOf("money") != -1) {
                     
                     $scope.wizard.data.locationHistory.push("alexandria");
                     $scope.output = "You make your way off the boat, the smell of fish on the docks doing little to detract from the splendor of the famous lighthouse that casts a shadow over you. You continue on into the city on your way to the most complete library in the entire world. \nThe marble steps to the hallowed place of learning bring a silent reverence to you as you enter.";
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "alexandria", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                     
                 }
-                if ($scope.parsingService.item == 'harbor' && $scope.wizard.data.currentLocation == 'giza') {
+                else if ($scope.parsingService.item == 'harbor' && $scope.wizard.data.currentLocation == 'giza') {
                     $scope.wizard.data.locationHistory.push("harbor");
-                    $scope.ouput = "You exit the city limits to the docks along the nile. There are many boats, though most are full of fish. \nYou find a passenger boat who may be willing to take you to Alexandria, if you have the coin.";
+                    $scope.output = "You exit the city limits to the docks along the nile. There are many boats, though most are full of fish. \nYou find a passenger boat who may be willing to take you to Alexandria, if you have the coin.";
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "harbor", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                 }
-                if ($scope.parsingService.item == 'vault' && $scope.wizard.data.currentLocation == 'alexandria') {
+                else if ($scope.parsingService.item == 'vault' && $scope.wizard.data.currentLocation == 'alexandria') {
                     $scope.wizard.data.locationHistory.push("vault");
                     $scope.output = "You enter the dusty room. It is protected by ancient magic, and you carefuly examine for booby traps.\nThe only thing of consequence is a large pedestal. It holds a basin covered in carved runes with some mysterious purpose.";
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "vault", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                 }
-                if ($scope.parsingService.item == 'atlantis' && $scope.wizard.data.currentLocation == 'vault' && $scope.wizard.data.inventory.indexOf("starlight") != -1) {
+                else if ($scope.parsingService.item == 'atlantis' && $scope.wizard.data.currentLocation == 'vault' && $scope.wizard.data.inventory.indexOf("starlight") != -1) {
                     $scope.wizard.data.locationHistory.push("atlantis");
                     $scope. output = "You pour the starlight from it's sealed bottle into the basin. The silver light seeps like liquid into the runes and a wind begins to pick up. A large portal begins to form in the air, and you step through...\nAnd find yourself in the Lost City of Atlantis.You marvel at its beauty, until you are almost gored by a Unicorn. \nYou maneuver around the Unicorn until you are able to siphon a rainbow colored fart into your sleeves.But the Unicorn doesn't stop, and soon you are chased back the way you came. \nAtlantis may be inhabited by killer Unicorns, but you have what you came for. Your mother will soon be cured...Or will she?";
                     $scope.wizard.data.fin = true;
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "atlantis", $scope.wizard.data.locationHistory, true, $scope.wizard.data._id, $scope.newPlace);
+                }
+                else {
+                    $scope.output = "You Can't go there";
                 }
                 //$scope.output = whatever;
                 
@@ -171,7 +174,9 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             console.log("entering look");
             $scope.allLocations.data.forEach(function(location) {
                 if (location.name==$scope.wizard.data.currentLocation){
+                   
                     $scope.output = location.objects.toString();
+                   
                 }
             });
             
