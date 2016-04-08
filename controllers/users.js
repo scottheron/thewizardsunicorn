@@ -1,10 +1,11 @@
 var express = require('express');
 var User = require('../models/user');
+var Wizard = require('../models/wizard');
 var router = express.Router();
 
 router.route('/')
   .get(function(req, res) {
-    var currentUser = req.user._doc._id;
+    var currentUserId = req.user._doc._id;
     User.find(function(err, user) { 
       if (err) return res.status(500).send(err);
       res.send(user);
@@ -18,6 +19,16 @@ router.route('/')
             if (err) return res.status(500).send(err);
                 res.send(user);
             });
+            Wizard.create({
+                    currentLocation: "lair",
+                    fin: true,
+                    inventory: ["staff"] ,
+                    locationHistory:["lair"]
+            }, function(err, user) {
+            if (err) return res.status(500).send(err);
+                res.send(wizard);
+            });
+            
         } else {
             res.redirect('/login');
         }
