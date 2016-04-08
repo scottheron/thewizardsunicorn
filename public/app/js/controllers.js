@@ -1,4 +1,4 @@
-var ctl = angular.module('AdventureCtrl', ['AdventureService', 'duParallax']);
+var ctl = angular.module('AdventureCtrl', ['AdventureService', 'duParallax', 'ngStorage']);
 
 ctl.controller('Adventure', ['$scope', '$http', function ($scope, $http) {
     $http.get('/apikey', {}).then(function success(data){
@@ -49,9 +49,13 @@ ctl.controller('NavCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $s
   }
 }]);
 
-ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", "UpdateWizard", function ($scope, GetWizard,ParsingService,GetLocation,UpdateWizard){
-    
+ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", "UpdateWizard",'$localStorage', function ($scope, GetWizard,ParsingService,GetLocation,UpdateWizard, $localStorage){
+    console.log($localStorage);
+    if ($localStorage.message == null){
     $scope.output = "You are a wizard whose mother has fallen ill. She has been cursed with ancient magic, and you don't know how to cure her. But hope is not lost! An old friend who lives in Giza may know a solution...\nwhat do you want to do?";
+    } else{
+        $scope.output = $localStorage.message;
+    }
     // CreateWizard(["staff"], "lair", ["lair"], false);
     // CreateLocations("lair", ["map", "cauldron", "Haggis"]);
     // CreateLocations("giza", ["money", "A grumpy cat", "some schwarma"]);
@@ -60,6 +64,27 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
     // CreateLocations("atlantis", ["Unicorn"]);
     $scope.adjacentLocations = [];
     $scope.commands="";
+
+    $scope.resetGame = function() {
+        UpdateWizard.wizardDB(["staff"], "lair", ["lair"], false,$scope.wizard.data._id, $scope.reload);
+
+    };
+
+    $scope.reload = function() {
+        GetWizard.wizardDB(function(wiz) {
+            
+                $scope.wizard = wiz;
+                console.log($localStorage.message);
+                
+                $localStorage.message = "You are a wizard whose mother has fallen ill. She has been cursed with ancient magic, and you don't know how to cure her. But hope is not lost! An old friend who lives in Giza may know a solution...\nwhat do you want to do?";
+                $scope.output = $localStorage.message;
+                console.log($scope.output);
+                console.log($localStorage.message);
+                location.reload();
+            
+            
+        });
+    };
     
     $scope.voiceToText = function() {
         $scope.commands = 'Loading';
@@ -69,7 +94,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
                 console.log($scope.commands);
             });
         });
-    }
+    };
 
     $scope.wiz = function(){
         GetWizard.wizardDB($scope.loc);
@@ -78,19 +103,19 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
     $scope.loc = function(wiz){
         $scope.wizard = wiz;
         GetLocation.locationDB($scope.gameLogic);
-    }
+    };
 
     $scope.pickup = function(wiz){
         console.log(wiz);
         $scope.output = "You picked up "+$scope.wizard.data.inventory[$scope.wizard.data.inventory.length-1];
-    }
+    };
 
     $scope.newPlace = function(wiz){
         if ($scope.parsingService.item == 'atlantis'){
-            $scope.output = "You have won!";
+            $scope.testing = "You have won!";
         }
         // $scope.output = "You traveled to "+$scope.parsingService.item;
-    }
+    };
     
     $scope.gameLogic = function (allTheLocations){
 
@@ -132,7 +157,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
                 }
                 if ($scope.parsingService.item == 'atlantis' && $scope.wizard.data.currentLocation == 'vault' && $scope.wizard.data.inventory.indexOf("starlight") != -1) {
                     $scope.wizard.data.locationHistory.push("atlantis");
-                    $scope. output = "You pour the starlight from it's sealed bottle into the basin. The silver light seeps like liquid into the runes and a wind begins to pick up. A large portal begins to form in the air, and you step through...\nAnd find yourself in the Lost City of Atlantis.You marvel at its beauty, until you are almost gored by a Unicorn. \nYou manuver around the Unicorn until you are able to siphon a rainbow colored fart into your sleeves.But the Unicorn doesn't stop, and soon you are chased back the way you came. \nAtlantis may be inhabited by killer Unicorns, but you have what you came for. Your mother will soon be cured...Or will she?";
+                    $scope. output = "You pour the starlight from it's sealed bottle into the basin. The silver light seeps like liquid into the runes and a wind begins to pick up. A large portal begins to form in the air, and you step through...\nAnd find yourself in the Lost City of Atlantis.You marvel at its beauty, until you are almost gored by a Unicorn. \nYou maneuver around the Unicorn until you are able to siphon a rainbow colored fart into your sleeves.But the Unicorn doesn't stop, and soon you are chased back the way you came. \nAtlantis may be inhabited by killer Unicorns, but you have what you came for. Your mother will soon be cured...Or will she?";
                     $scope.wizard.data.fin = true;
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "atlantis", $scope.wizard.data.locationHistory, true, $scope.wizard.data._id, $scope.newPlace);
                 }
@@ -191,7 +216,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             
             break;
             
-            case 'inventory':
+            case 'what':
             $scope.output = $scope.wizard.data.inventory.toString();
             break;
             
@@ -199,8 +224,9 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             $scope.output = "don't undesrstand";
         }
         
-        if ($scope.wizard.fin === true) $scope.testing = "You Won!";
-
+        if ($scope.wizard.data.fin === true) $scope.testing = "You Won!";
+        console.log($scope.testing);
+        $localStorage.message = $scope.output;
         
     }
 }]);

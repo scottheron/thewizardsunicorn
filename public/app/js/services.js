@@ -38,7 +38,7 @@ svc.service("ParsingService", [function (command){
     this.parse = function(command){
         var properItems = {
             "go": ["lair", "giza", "harbor", "alexandria", "vault", "atlantis"],
-            "pick": ["map", "cauldron", "Haggis", "money", "cat", "schwarma", "light", "History", "Squash", "dust", "cake"]
+            "pick": ["map", "cauldron", "Haggis", "money", "cat", "schwarma", "starlight", "History", "Squash", "dust", "cake"]
         };
         par = command.split(" ");
         comm = par[0].trim();
