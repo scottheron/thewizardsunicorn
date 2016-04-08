@@ -21,7 +21,7 @@ app.use('/api/users', expressJWT({secret: secret}).unless({
 }));
 //app.use('/adventure', expressJWT({secret: secret}));
 
-mongoose.connect('mongodb://localhost/adventure');
+mongoose.connect( process.env.MONGOLAB_URI || 'mongodb://localhost/adventure');
 
 app.use('/api/locations', require('./controllers/locations'));
 app.use('/api/wizards', require('./controllers/wizards'));
