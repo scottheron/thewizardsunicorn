@@ -50,8 +50,8 @@ ctl.controller('NavCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $s
 }]);
 
 ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", "UpdateWizard", function ($scope, GetWizard,ParsingService,GetLocation,UpdateWizard){
-    // $scope.initialService = InitialService;
-    $scope.output = "default";
+    
+    $scope.output = "You are a wizard whose mother has fallen ill. She has been cursed with ancient magic, and you don't know how to cure her. But hope is not lost! An old friend who lives in Giza may know a solution...\nwhat do you want to do?";
     // CreateWizard(["staff"], "lair", ["lair"], false);
     // CreateLocations("lair", ["map", "cauldron", "Haggis"]);
     // CreateLocations("giza", ["money", "A grumpy cat", "some schwarma"]);
@@ -89,7 +89,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
         if ($scope.parsingService.item == 'atlantis'){
             $scope.output = "You have won!";
         }
-        $scope.output = "You traveled to "+$scope.parsingService.item;
+        // $scope.output = "You traveled to "+$scope.parsingService.item;
     }
     
     $scope.gameLogic = function (allTheLocations){
@@ -108,25 +108,31 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             } else {
                 if ($scope.parsingService.item == "giza" && $scope.wizard.data.inventory.indexOf("map") != -1){
                     $scope.wizard.data.locationHistory.push("giza");
+                    $scope.output = "You open a shimmering portal and step through into blistering heat. The air is dry and you immediately lick your lips as the arid wind and sand sears your face. \nYou set out to find your friend, who has a stall at the market. You pass by merchants selling trinkets, wares, and most importantly food. Your stomach grumbles, but you have a mission. You find your friend at his small stall selling circus trained fleas. His skin his weathered from age, and his white beared is is tangled.&#13;&#10;'Hey old man. My dear old mum has been cursed by Ebrietas.' you say.\nThe old man hums and rubs his beard before saying, 'The only thing that can cure her is a unicorn's fart, and the Last Unicorn is in the lost city of Atlantis.'\n'Well how do I get to Atlantis?' you ask.\nIt is said the hidden road to Atlantis is at the Library of Alexandria. There are boats to Alexandria in the harbor. \nThanks old man! \nWait! It's dangerous to go alone. Take this! \nHe hands you a wooden sword. You are confused as to why you would need a wooden sword. But you stuff it up your sleeve anyway.";
+                    $scope.wizard.data.inventory.push("wooden sword");
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "giza", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                     
                 }
                 if ($scope.parsingService.item == 'alexandria' && $scope.wizard.data.currentLocation == 'harbor' && $scope.wizard.data.inventory.indexOf("money") != -1) {
                     
                     $scope.wizard.data.locationHistory.push("alexandria");
+                    $scope.output = "You make your way off the boat, the smell of fish on the docks doing little to detract from the splendor of the famous lighthouse that casts a shadow over you. You continue on into the city on your way to the most complete library in the entire world. \nThe marble steps to the hallowed place of learning bring a silent reverence to you as you enter.";
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "alexandria", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                     
                 }
                 if ($scope.parsingService.item == 'harbor' && $scope.wizard.data.currentLocation == 'giza') {
                     $scope.wizard.data.locationHistory.push("harbor");
+                    $scope.ouput = "You exit the city limits to the docks along the nile. There are many boats, though most are full of fish. \nYou find a passenger boat who may be willing to take you to Alexandria, if you have the coin.";
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "harbor", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                 }
                 if ($scope.parsingService.item == 'vault' && $scope.wizard.data.currentLocation == 'alexandria') {
                     $scope.wizard.data.locationHistory.push("vault");
+                    $scope.output = "You enter the dusty room. It is protected by ancient magic, and you carefuly examine for booby traps.\nThe only thing of consequence is a large pedestal. It holds a basin covered in carved runes with some mysterious purpose.";
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "vault", $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.newPlace);
                 }
                 if ($scope.parsingService.item == 'atlantis' && $scope.wizard.data.currentLocation == 'vault' && $scope.wizard.data.inventory.indexOf("starlight") != -1) {
                     $scope.wizard.data.locationHistory.push("atlantis");
+                    $scope. output = "You pour the starlight from it's sealed bottle into the basin. The silver light seeps like liquid into the runes and a wind begins to pick up. A large portal begins to form in the air, and you step through...\nAnd find yourself in the Lost City of Atlantis.You marvel at its beauty, until you are almost gored by a Unicorn. \nYou manuver around the Unicorn until you are able to siphon a rainbow colored fart into your sleeves.But the Unicorn doesn't stop, and soon you are chased back the way you came. \nAtlantis may be inhabited by killer Unicorns, but you have what you came for. Your mother will soon be cured...Or will she?";
                     $scope.wizard.data.fin = true;
                     UpdateWizard.wizardDB($scope.wizard.data.inventory, "atlantis", $scope.wizard.data.locationHistory, true, $scope.wizard.data._id, $scope.newPlace);
                 }
@@ -135,12 +141,12 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             }
             break;
             
-            case 'look':
+            case 'check':
             // $scope.allLocations = GetLocation; 
             console.log("entering look");
             $scope.allLocations.data.forEach(function(location) {
                 if (location.name==$scope.wizard.data.currentLocation){
-                    $scope.output = location.objects;
+                    $scope.output = location.objects.toString();
                 }
             });
             
@@ -181,19 +187,19 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             var indexOfLocation = $scope.adjacentLocations.indexOf($scope.wizard.data.currentLocation);
             
             $scope.adjacentLocations.splice(indexOfLocation, 1);
-            $scope.output = $scope.adjacentLocations;
+            $scope.output = $scope.adjacentLocations.toString();
             
             break;
             
             case 'inventory':
-            $scope.output = $scope.wizard.data.inventory;
+            $scope.output = $scope.wizard.data.inventory.toString();
             break;
             
             default:
             $scope.output = "don't undesrstand";
         }
         
-        // $scope.wizard = GetWizard;
+        if ($scope.wizard.fin === true) $scope.testing = "You Won!";
 
         
     }
