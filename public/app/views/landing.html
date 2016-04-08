@@ -1,34 +1,28 @@
-<!--<div>
-    
-    <h1 id="landingH1">Landing Page</h1>
-    
-    <div class="imageDiv">
-            <img parallax parallax-ratio="0.4" id="firstImg" src="/app/img/unicorn-and-wizard.jpg" du-parallax y="background" alt="" />
-    </div>
-     
-        
-    </div>
-</div>-->
 <div class="wrap" ng-controller="Parallax">
   <h1>The Wizards Unicorn</h1>
   <div class="landingText">
     <p>Welcome to the <span class="biggerText">Greatest Adventure</span> of your life!<br /><br />This is a <span class="biggerText">VOICE</span> controlled
     text adventure game. You are the best 3rd class Wizard of your time. Make your way through the world, collecting the items you need to reach far flung destinations and discover...<br /></p><span id="atlantisText"><h3>...ATLANTIS!</h3></span><br />
   </div>
-  <img src="/app/img/unicorn-and-wizard-mini.jpg" alt="" du-parallax y="background" />
+  <img class="landingImg" src="/app/img/unicorn-and-wizard-mini.jpg" alt="" du-parallax y="background" />
   <div class="landingText">
     <p><span class="biggerText">Getting Started: </span>Sign up or login to get access to the game. Once signed in click the 'Adventure' option from the menu above. The game page will show and instructions on voice control will be available.</p>
   </div>
-  <img src="/app/img/magician-02.jpg" alt="" du-parallax y="background" />
+  <img class="landingImg" src="/app/img/magician-02.jpg" alt="" du-parallax y="background" />
   <div class="landingText">
     <p><span class="biggerText">Technology: </span>This site was built using the MEAN stack (MongoDB, Express, Angular.JS and Node.JS) along with JavaScript, Bootstrap and Parallax<br /><br /><span class="biggerText">API: </span>We used Microsoft's Voice to Text API released during BUILD 2016. The API records 5 second of voice and uses their cloud AI platform to convert it to text which is then used as an input for the game. The text adventure was created using Angular and JavaScript and is an original piece of work by Ethan Young. The game elements are held on MongoDB which is accessed throughout the adventure to save the state of the game and record progress.</p>
   </div>
-  <img src="/app/img/magical-world.jpg" alt="" du-parallax y="background" />
-  <div class="landingText">
-    <p>Bacon ipsum dolor sit amet sausage tail capicola ground round hamburger ham hock. Short ribs pig andouille meatball, pastrami tri-tip fatback ham hock shank kielbasa swine. Rump pancetta jerky kielbasa doner beef ribs tongue hamburger strip steak drumstick andouille shoulder shank flank. Swine drumstick meatball pig beef sausage strip steak.</p>
+  <img class="landingImg" src="/app/img/magical-world.jpg" alt="" du-parallax y="background" />
+  <div class="landingText row">
+    <p><span class="biggerText">The Team: </span></p>
+    <div class="col-md-6">
+        <img class="profileImg" src="/app/img/mesquare.jpg"/>
+        <p>Scott was git Master on this project, he implimented the Microsoft Voice to Text API, styled the site and helped Angularize the Text Adventure JavaScript code to controllers and services. When he isn't coding he is reading or teaching his baby girl her first Scottish words.</p>
+    </div>
+    <div class="col-md-6">
+        <img class="profileImg" src="/app/img/Ethan.jpg"/>
+        <p>Ethan created the text adventure for this project. He helped to Angularize the Text Adventure JavaScript code to controllers and services and designed the database. When he is not Developing, or playing games, Ethan enjoys reading new stories, listening to music, and flopping on the floor like a fish.</p>
+    </div>
   </div>
-  <img src="/app/img/magician.jpg" alt="" du-parallax y="background" />
-  <div class="landingText">
-    <p>Bacon ipsum dolor sit amet sausage tail capicola ground round hamburger ham hock. Short ribs pig andouille meatball, pastrami tri-tip fatback ham hock shank kielbasa swine. Rump pancetta jerky kielbasa doner beef ribs tongue hamburger strip steak drumstick andouille shoulder shank flank. Swine drumstick meatball pig beef sausage strip steak.</p>
-  </div>
+  <img class="landingImg" src="/app/img/magician.jpg" alt="" du-parallax y="background" />
 </div>

@@ -34,7 +34,7 @@ h1 {
     font-size: 30px;
 }
 
-img {
+.landingImg {
     position: relative;
     z-index: 0;
     margin: 0 auto;
@@ -49,4 +49,10 @@ img {
 
 #atlantisText {
     float: right;
+}
+
+.profileImg {
+    margin-bottom: 3rem;
+    border-radius: 50%;
+    width: 30rem;
 }
