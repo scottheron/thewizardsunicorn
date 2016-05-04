@@ -1,3 +1,5 @@
+<!--Main HTML layout file for The Wizards Unicorn. Links to CDN and local files required for the site. -->
+
 <!DOCTYPE html>
 <html lang="">
     <head>
@@ -12,6 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/app/css/main.css">
+        <!--Function contains a variable for the API key which is reset to null here-->
         <script>
             (function(){
               var apikey = null;
@@ -21,6 +24,7 @@
     </head>
     <body ng-app="AdventureApp">
         
+        <!--The following div elements contains a link to the Navbar, Footer and current view link for each page-->
         <div class="container">
             <div ng-include="'app/views/navbar.html'"></div>
             <div ui-view></div>
