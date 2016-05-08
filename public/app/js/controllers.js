@@ -1,5 +1,8 @@
+// Controllers JS file for the wizards unicorn. Creates the AdventureCtrl for the app. Uses duParallax, ngStorage
+// and links to the AdventureService.
 var ctl = angular.module('AdventureCtrl', ['AdventureService', 'duParallax', 'ngStorage']);
 
+// Adventure controller updates API key.
 ctl.controller('Adventure', ['$scope', '$http', function ($scope, $http) {
     $http.get('/apikey', {}).then(function success(data){
         apikey = data.data;

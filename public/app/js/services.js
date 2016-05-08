@@ -1,4 +1,4 @@
-// Services JS file for the wizards unicorn. Creates the AdventureService for the app.
+// Services JS file for the wizards unicorn. Creates the AdventureService for the app. Uses ngResource.
 var svc = angular.module('AdventureService', ['ngResource']);
 
 // factory 'Adventure' returns $resource
