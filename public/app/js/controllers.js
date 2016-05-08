@@ -1,5 +1,8 @@
+// Controllers JS file for the wizards unicorn. Creates the AdventureCtrl for the app. Uses duParallax, ngStorage
+// and links to the AdventureService.
 var ctl = angular.module('AdventureCtrl', ['AdventureService', 'duParallax', 'ngStorage']);
 
+// Adventure controller updates API key.
 ctl.controller('Adventure', ['$scope', '$http', function ($scope, $http) {
     $http.get('/apikey', {}).then(function success(data){
         apikey = data.data;
@@ -8,10 +11,12 @@ ctl.controller('Adventure', ['$scope', '$http', function ($scope, $http) {
     });
 }]);
 
+// Parallax controller handles parallax CSS
 ctl.controller('Parallax', function($scope, parallaxHelper){
     $scope.background = parallaxHelper.createAnimator(-0.5, 150, -150);
 });
 
+// SignupCtrl handles user signup variables
 ctl.controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
   $scope.user = {
     email: '',
@@ -26,6 +31,7 @@ ctl.controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $
   }
 }]);
 
+// LoginCtrl controller handles user login variables and auth token data.
 ctl.controller('LoginCtrl', ['$scope', '$http', '$location', 'Auth', function($scope, $http, $location, Auth) {
   $scope.user = {
     email: '',
@@ -40,7 +46,7 @@ ctl.controller('LoginCtrl', ['$scope', '$http', '$location', 'Auth', function($s
     })
   }
 }]);
-
+// NavCtrl controller handles the lohout state.
 ctl.controller('NavCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $state) {
   $scope.Auth = Auth;
   $scope.logout = function() {
@@ -49,6 +55,7 @@ ctl.controller('NavCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $s
   }
 }]);
 
+// Game controller runs the game itself.
 ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", "UpdateWizard",'$localStorage', function ($scope, GetWizard,ParsingService,GetLocation,UpdateWizard, $localStorage){
     console.log($localStorage);
     if ($localStorage.message == null){
@@ -56,12 +63,6 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
     } else{
         $scope.output = $localStorage.message;
     }
-    // CreateWizard(["staff"], "lair", ["lair"], false);
-    // CreateLocations("lair", ["map", "cauldron", "Haggis"]);
-    // CreateLocations("giza", ["money", "A grumpy cat", "some schwarma"]);
-    // CreateLocations("alexandria", ["starlight", "a book titled: History of Atlantis", "a Box of Butternut Squash"]);
-    // CreateLocations("vault", ["dust","a Strange cream filled yellow cake"]);
-    // CreateLocations("atlantis", ["Unicorn"]);
     $scope.adjacentLocations = [];
     $scope.commands="";
 
