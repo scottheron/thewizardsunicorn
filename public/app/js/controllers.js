@@ -70,7 +70,8 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
         UpdateWizard.wizardDB(["staff"], "lair", ["lair"], false,$scope.wizard.data._id, $scope.reload);
 
     };
-
+    
+    // Function to reset the state of the game
     $scope.reload = function() {
         GetWizard.wizardDB(function(wiz) {
             
@@ -82,8 +83,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
                 console.log($scope.output);
                 console.log($localStorage.message);
                 location.reload();
-            
-            
+                
         });
     };
     
