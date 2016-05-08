@@ -55,6 +55,7 @@ ctl.controller('NavCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $s
   }
 }]);
 
+// Game controller runs the game itself.
 ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", "UpdateWizard",'$localStorage', function ($scope, GetWizard,ParsingService,GetLocation,UpdateWizard, $localStorage){
     console.log($localStorage);
     if ($localStorage.message == null){
@@ -62,12 +63,6 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
     } else{
         $scope.output = $localStorage.message;
     }
-    // CreateWizard(["staff"], "lair", ["lair"], false);
-    // CreateLocations("lair", ["map", "cauldron", "Haggis"]);
-    // CreateLocations("giza", ["money", "A grumpy cat", "some schwarma"]);
-    // CreateLocations("alexandria", ["starlight", "a book titled: History of Atlantis", "a Box of Butternut Squash"]);
-    // CreateLocations("vault", ["dust","a Strange cream filled yellow cake"]);
-    // CreateLocations("atlantis", ["Unicorn"]);
     $scope.adjacentLocations = [];
     $scope.commands="";
 
