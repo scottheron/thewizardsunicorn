@@ -31,6 +31,7 @@ ctl.controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $
   }
 }]);
 
+// LoginCtrl controller handles user login variables and auth token data.
 ctl.controller('LoginCtrl', ['$scope', '$http', '$location', 'Auth', function($scope, $http, $location, Auth) {
   $scope.user = {
     email: '',
