@@ -16,6 +16,7 @@ ctl.controller('Parallax', function($scope, parallaxHelper){
     $scope.background = parallaxHelper.createAnimator(-0.5, 150, -150);
 });
 
+// SignupCtrl handles user signup variables
 ctl.controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
   $scope.user = {
     email: '',
