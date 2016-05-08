@@ -46,7 +46,7 @@ ctl.controller('LoginCtrl', ['$scope', '$http', '$location', 'Auth', function($s
     })
   }
 }]);
-
+// NavCtrl controller handles the lohout state.
 ctl.controller('NavCtrl', ['$scope', 'Auth', '$state', function($scope, Auth, $state) {
   $scope.Auth = Auth;
   $scope.logout = function() {
