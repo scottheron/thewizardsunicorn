@@ -11,6 +11,7 @@ ctl.controller('Adventure', ['$scope', '$http', function ($scope, $http) {
     });
 }]);
 
+// Parallax controller handles parallax CSS
 ctl.controller('Parallax', function($scope, parallaxHelper){
     $scope.background = parallaxHelper.createAnimator(-0.5, 150, -150);
 });
