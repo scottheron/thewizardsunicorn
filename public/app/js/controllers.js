@@ -115,13 +115,12 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
         if ($scope.parsingService.item == 'atlantis'){
             $scope.testing = "You have won!";
         }
-        // $scope.output = "You traveled to "+$scope.parsingService.item;
+        
     };
     
     $scope.gameLogic = function (allTheLocations){
 
         $scope.allLocations = allTheLocations;
-        // $scope.wizard = GetWizard.wizardDB();
         console.log("inventory");
         console.log($scope.wizard.data.inventory);
         $scope.parsingService = ParsingService.parse($scope.commands);
