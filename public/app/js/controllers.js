@@ -86,7 +86,7 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
                 
         });
     };
-    
+    // Function to handle the text from the voice to text conversion
     $scope.voiceToText = function() {
         $scope.commands = 'Loading';
         start(function(text) {
@@ -96,7 +96,8 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             });
         });
     };
-
+    
+    // Function to get the user's wizard from the database
     $scope.wiz = function(){
         GetWizard.wizardDB($scope.loc);
     };
