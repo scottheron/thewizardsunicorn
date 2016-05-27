@@ -119,8 +119,8 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
         
     };
     
+    // Function to handle the games logic.
     $scope.gameLogic = function (allTheLocations){
-
         $scope.allLocations = allTheLocations;
         console.log("inventory");
         console.log($scope.wizard.data.inventory);
@@ -165,13 +165,11 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
                 else {
                     $scope.output = "You Can't go there";
                 }
-                //$scope.output = whatever;
                 
             }
             break;
             
             case 'check':
-            // $scope.allLocations = GetLocation; 
             console.log("entering look");
             $scope.allLocations.data.forEach(function(location) {
                 if (location.name==$scope.wizard.data.currentLocation){
@@ -188,7 +186,6 @@ ctl.controller('Game', ['$scope', 'GetWizard', 'ParsingService', "GetLocation", 
             console.log($scope.wizard.data.inventory);
             UpdateWizard.wizardDB($scope.wizard.data.inventory, $scope.wizard.data.currentLocation, $scope.wizard.data.locationHistory, $scope.wizard.data.fin, $scope.wizard.data._id, $scope.pickup);
            
-            //PickUp($scope.parsingService.item);
             break;
             
             case 'where':
