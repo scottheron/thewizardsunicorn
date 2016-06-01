@@ -1,5 +1,6 @@
 var app = angular.module("AdventureApp", ['AdventureCtrl', 'AdventureService', 'ngAnimate', 'ui.bootstrap', 'ui.router', 'ngResource', 'duParallax']);
 
+// Configures routes for the app including a 404 page.
 app.config([
     '$stateProvider', 
     '$urlRouterProvider', 
@@ -16,7 +17,7 @@ app.config([
         .state('voicetotext', {
             url: '/voicetotext',
             templateUrl: 'app/views/voicetotext.html'
-            //controller: 'Adventure'
+            
         })
         .state('adventure', {
             url: '/adventure',
